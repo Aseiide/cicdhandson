@@ -24,5 +24,8 @@ jobs:
       - name: Dockerビルドを実行する
         run: docker build -t ghcr.io.${{ env.REPO_NAME }}:latest .
 
+      - name: docker imagesを実行する
+        run: docker images
+
       - name: イメージをプッシュする
         run: docker push ghcr.io/${{ env.REPO_NAME }}:latest
