@@ -22,7 +22,7 @@ jobs:
         run: echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u ${{github.actor}} --password-stdin
 
       - name: Dockerビルドを実行する
-        run: docker build -t ghcr.io.${{ env.REPO_NAME }}:latest .
+        run: docker build -t ghcr.io.${{ env.REPO_NAME }}:latest
 
       - name: docker imagesを実行する
         run: docker images
