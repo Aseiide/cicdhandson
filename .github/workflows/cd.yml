@@ -14,9 +14,15 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: リポジトリ名をlowercaseにする
+        run: echo "REPO_NAME=$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Container registryに認証する
         run: echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io -u ${{github.actor}} --password-stdin
+
       - name: Dockerビルドを実行する
-        run: docker build -t ghcr.io.${{github.repository}}:latest .
+        run: docker build -t ghcr.io.${{ env.REPO_NAME }}:latest .
+
       - name: イメージをプッシュする
-        run: docker push ghcr.io/${{github.repository}}:latest
+        run: docker push ghcr.io/${{ env.REPO_NAME }}:latest
